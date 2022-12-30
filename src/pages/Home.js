@@ -8,7 +8,7 @@ import Property from "../components/Property";
 
 const Home = () => {
 
-    const [apidata, setApidata] = useState();
+    const [apidata, setApidata] = useState([]);
 
     const URL= 'https://bayut.p.rapidapi.com/properties/list';
 
@@ -26,7 +26,7 @@ const Home = () => {
           }
           });
           console.log(data);
-          setApidata(data);
+          setApidata(data.hits);
           console.log(apidata);         
     } catch (error) {
           console.log(error);
@@ -34,10 +34,16 @@ const Home = () => {
 };
     
     useEffect(() => {
+      
        fetchApi()
       },[]);
+
+
     
 
+      useEffect(() => {
+        console.log(apidata);
+      }, [apidata]);  
     // useEffect( () => {
     //    fetchApi()
     //     .then((result)=>{
@@ -60,9 +66,9 @@ const Home = () => {
         linkName="/search?purpose=for-rent"
         imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/145426814/33973352624c48628e41f2ec460faba4"
       />
-      {/* <Flex flexWrap="wrap">
+      <Flex flexWrap="wrap">
         {apidata.map((property) => <Property property={property} key={property.id} />)}
-      </Flex> */}
+      </Flex>
 
       <Banner
       purpose='BUY A HOME'
