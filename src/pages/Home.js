@@ -5,12 +5,39 @@ import axios from 'axios';
 //import { fetchApi } from '../api/fetchApi';
 
 import Property from "../components/Property";
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Home = () => {
 
     const [apidata, setApidata] = useState([]);
+    const [apidataa, setApidataa] = useState([]);
 
     const URL= 'https://bayut.p.rapidapi.com/properties/list';
+    
+
+    const fetchApii = async() => {
+      try {
+          const { data } = await axios.get(URL, {
+            params: {
+              locationExternalIDs:5002,
+              purpose:"For-rent",
+              hitsPerPage:6,
+              },
+          headers: {
+              'X-RapidAPI-Key': 'b506967006msh711bdc517f7f409p11dc99jsn8d7f50c8c915',
+              'X-RapidAPI-Host': 'bayut.p.rapidapi.com'
+            }
+            });
+            console.log(data);
+            setApidataa(data.hits);
+            console.log(apidataa);         
+      } catch (error) {
+            console.log(error);
+    }
+  };
+
+
 
    const fetchApi = async() => {
     try {
@@ -18,7 +45,7 @@ const Home = () => {
           params: {
             locationExternalIDs:5002,
             purpose:"For-sale",
-            hitsPerPage:10,
+            hitsPerPage:6,
             },
         headers: {
             'X-RapidAPI-Key': 'b506967006msh711bdc517f7f409p11dc99jsn8d7f50c8c915',
@@ -35,7 +62,8 @@ const Home = () => {
     
     useEffect(() => {
       
-       fetchApi()
+       fetchApi();
+       fetchApii();
       },[]);
 
 
@@ -55,7 +83,9 @@ const Home = () => {
 
         
     return (
+      
     <Box>
+      <Navbar/>
       <Banner
         purpose="RENT A HOME"
         title1="Rental Homes for"
@@ -80,9 +110,10 @@ const Home = () => {
       linkName='/search?purpose=for-sale'
       imageUrl='https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008'
     />
-    {/* <Flex flexWrap='wrap'>
-      {apidata.map((property) => <Property property={property} key={property.id} />)}
-    </Flex> */}
+    <Flex flexWrap='wrap'>
+      {apidataa.map((property) => <Property property={property} key={property.id} />)}
+    </Flex>
+    <Footer/>
 
     </Box>
   );
