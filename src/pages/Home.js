@@ -8,6 +8,7 @@ import Property from "../components/Property";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
+
 const Home = () => {
 
     const [apidata, setApidata] = useState([]);
@@ -25,7 +26,7 @@ const Home = () => {
               hitsPerPage:6,
               },
           headers: {
-              'X-RapidAPI-Key': 'b506967006msh711bdc517f7f409p11dc99jsn8d7f50c8c915',
+              'X-RapidAPI-Key': 'cc2873c483msha71a2e0f5f8d4dfp1e533bjsn313e9ce0ba33',
               'X-RapidAPI-Host': 'bayut.p.rapidapi.com'
             }
             });
@@ -48,7 +49,7 @@ const Home = () => {
             hitsPerPage:6,
             },
         headers: {
-            'X-RapidAPI-Key': 'b506967006msh711bdc517f7f409p11dc99jsn8d7f50c8c915',
+            'X-RapidAPI-Key': 'cc2873c483msha71a2e0f5f8d4dfp1e533bjsn313e9ce0ba33',
             'X-RapidAPI-Host': 'bayut.p.rapidapi.com'
           }
           });
@@ -60,11 +61,11 @@ const Home = () => {
   }
 };
     
-    useEffect(() => {
+    // useEffect(() => {
       
-       fetchApi();
-       fetchApii();
-      },[]);
+    //    fetchApi();
+    //    fetchApii();
+    //   },[]);
 
 
     
@@ -114,7 +115,6 @@ const Home = () => {
       {apidataa.map((property) => <Property property={property} key={property.id} />)}
     </Flex>
     <Footer/>
-
     </Box>
   );
   }
