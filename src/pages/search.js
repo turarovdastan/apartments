@@ -11,12 +11,33 @@ import noresult from '../components/images/noresult.svg';
 
 
 const Search = () => {
+ const [message, setMessage] = useState('');
+
+  function chooseMsg (mess){
+    setMessage(mess);
+    console.log(mess);
+    console.log(message);
+    
+   
+  };
+
+  // let filteredlist = apidataa.filter((product) => {
+  //   if(message.purpose === 'for-rent'){
+  //     return product.purpose.contains('for-rent');
+  //   }
+  //   else{
+  //     return product;
+  //   }
+  // })
   const [searchFilters, setSearchFilters] = useState(false);
   const [apidataa, setApidataa] = useState([]);
-   const URL= 'https://bayut.p.rapidapi.com/properties/list';
-    
+  const URL= 'https://bayut.p.rapidapi.com/properties/list';
 
+
+    
+  
   const fetchApii = async() => {
+
     try {
         const { data } = await axios.get(URL, {
           params: {
@@ -30,16 +51,20 @@ const Search = () => {
           }
           });
           console.log(data);
+          
           setApidataa(data.hits);
-          console.log(apidataa);         
+                   
     } catch (error) {
-          console.log(error);
+
+       console.log(error);
+
   }
 };
 useEffect(() => {
       fetchApii();
       },[]);
-
+      //console.log(apidataa.filter(user=>user.includes(message)));
+      console.log(apidataa);
   return (
     <Box>
       <Navbar/>
@@ -58,11 +83,14 @@ useEffect(() => {
         <Text>Search Property By Filters</Text>
         <Icon paddingLeft='2' w='7' as={BsFilter} />
       </Flex>
-       {searchFilters && <SearchFilters />}
+      
+       {searchFilters && <SearchFilters chooseMsg={chooseMsg} />}
     
        <Flex flexWrap='wrap'>
+        
          {apidataa.map((property) => <Property property={property} key={property.id} />)}
        </Flex>
+
        {[].length === 0 && (
         <Flex justifyContent='center' alignItems='center' flexDir='column' marginTop='5' marginBottom='5'>
           <Image src={noresult} alt="no image"/>

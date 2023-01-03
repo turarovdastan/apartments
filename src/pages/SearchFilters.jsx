@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Flex, Select, Box, Text, Input, Spinner, Icon, Button } from '@chakra-ui/react';
+import { Flex, Select, Box, Text, Input, Spinner, Icon, Button, filter } from '@chakra-ui/react';
 // import { useRouter } from 'next/router';
 import { MdCancel } from 'react-icons/md';
 // import Image from 'next/image';
@@ -10,11 +10,18 @@ import { filterData , getFilterValues} from '../api/filterData';
 import noresult from '../components/images/noresult.svg';
 import React from 'react';
 
-const SearchFilters = () => {
+
+
+const SearchFilters = ({ chooseMsg }) => {
 
   const searchProperties = (filterValues) => {
     //const path = router.pathname;
     //const { query } = router;
+    
+     
+    
+     
+    
 
     const values = getFilterValues(filterValues)
 
@@ -26,18 +33,24 @@ const SearchFilters = () => {
 
     //router.push({ pathname: path, query: query });
   };
-
-   const [filters, SearchFilters] = useState(filterData);
   
+ // 
+   const [filters, SearchFilters] = useState(filterData);
+   //console.log(filterData.filter(items=>items.value.includes("filter")));
+   console.log(filters);
+   const [query, setQuery] = useState([]);
+   console.log(query);
+   
+   //searchProperties
    return (
     <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
     {filters?.map((filter) => (
       <Box key={filter.queryName}>
-        <Select onChange={(e) => searchProperties({ [filter.queryName]: e.target.value })} placeholder={filter.placeholder} w='fit-content' p='2' >
+        <Select onChange={(e) =>chooseMsg({ [filter.queryName]: e.target.value })} placeholder={filter.placeholder} w='fit-content' p='2' >
           {filter?.items?.map((item) => (
             <option value={item.value} key={item.value}>
               {item.name}
-            </option>
+            </option> 
           ))}
         </Select>
       </Box>
