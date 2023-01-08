@@ -1,0 +1,21 @@
+.leaflet-container {
+    width: 100%;
+    height: calc(90vh - 150px);
+  }
+  .css-r6z5ec{
+    z-index: 10000 !important;
+  }
+.filters{
+  margin: 10px 0;
+  padding: 0 10px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-gap: 10px;
+}
+.input-main{
+  border: medium none;
+  width: 100%;
+  box-shadow: none;
+  background-color: rgb(255, 255, 255);
+  flex-wrap: nowrap;
+}

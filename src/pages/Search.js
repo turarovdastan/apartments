@@ -14,21 +14,11 @@ const Search = () => {
  const [message, setMessage] = useState('');
 
   function chooseMsg (mess){
-    setMessage(mess);
-    console.log(mess);
-    console.log(message);
-    
-   
+    let query = {}
+    mess.map(i => query = {...query, ...i})
+    setMessage(query);
   };
 
-  // let filteredlist = apidataa.filter((product) => {
-  //   if(message.purpose === 'for-rent'){
-  //     return product.purpose.contains('for-rent');
-  //   }
-  //   else{
-  //     return product;
-  //   }
-  // })
   const [searchFilters, setSearchFilters] = useState(false);
   const [apidataa, setApidataa] = useState([]);
   const URL= 'https://bayut.p.rapidapi.com/properties/list';
@@ -36,7 +26,7 @@ const Search = () => {
 
     
   
-  const fetchApii = async() => {
+  const fetchApii = async(message) => {
 
     try {
         const { data } = await axios.get(URL, {
@@ -44,14 +34,13 @@ const Search = () => {
             locationExternalIDs:5002,
             purpose:"For-rent",
             hitsPerPage:6,
+            ...message 
             },
         headers: {
             'X-RapidAPI-Key': 'cc2873c483msha71a2e0f5f8d4dfp1e533bjsn313e9ce0ba33',
             'X-RapidAPI-Host': 'bayut.p.rapidapi.com'
           }
           });
-          console.log(data);
-          
           setApidataa(data.hits);
                    
     } catch (error) {
@@ -60,11 +49,13 @@ const Search = () => {
 
   }
 };
-useEffect(() => {
+    useEffect(() => {
       fetchApii();
-      },[]);
-      //console.log(apidataa.filter(user=>user.includes(message)));
-      console.log(apidataa);
+    },[]);
+    useEffect(() => {
+      console.log(message);
+      fetchApii(message);
+    },[message]);
   return (
     <Box>
       <Navbar/>

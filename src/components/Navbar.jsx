@@ -1,7 +1,7 @@
 //import { Link } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { Menu, MenuButton, MenuList, MenuItem, IconButton, Flex, Box, Spacer } from '@chakra-ui/react';
-import { FcMenu, FcHome, FcAbout } from 'react-icons/fc';
+import { FcMenu, FcAbout } from 'react-icons/fc';
 import { BsSearch } from 'react-icons/bs';
 import { FiKey } from 'react-icons/fi';
 
@@ -15,9 +15,6 @@ const Navbar = () => (
       <Menu>
         <MenuButton as={IconButton} icon={<FcMenu />} variant='outline' color='red.400' />
         <MenuList>
-          {/* <Link href='/' passHref>
-            <MenuItem icon={<FcHome />}>Home</MenuItem>
-          </Link> */}
           <Link to='/Search'>
             <MenuItem icon={<BsSearch />}>Search</MenuItem>
           </Link>
